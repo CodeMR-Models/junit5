@@ -38,8 +38,9 @@ abstract class MethodBasedTestDescriptor extends JupiterTestDescriptor {
 	private final Set<TestTag> tags;
 
 	MethodBasedTestDescriptor(UniqueId uniqueId, Class<?> testClass, Method testMethod) {
-		this(uniqueId, determineDisplayName(Preconditions.notNull(testMethod, "Method must not be null"),
-			MethodBasedTestDescriptor::generateDefaultDisplayName), testClass, testMethod);
+		this(uniqueId,
+			determineDisplayName(testMethod, () -> displayNameGenerator.generateDisplayNameForMethod(testMethod)),
+			testClass, testMethod);
 	}
 
 	MethodBasedTestDescriptor(UniqueId uniqueId, String displayName, Class<?> testClass, Method testMethod) {
@@ -81,6 +82,23 @@ abstract class MethodBasedTestDescriptor extends JupiterTestDescriptor {
 	}
 
 	private static String generateDefaultDisplayName(Method testMethod) {
+		if (testMethod.getName().contains("_")) {
+			StringBuilder builder = new StringBuilder();
+			Class<?> current = testMethod.getDeclaringClass();
+			while (current != null) {
+				String currentSimpleName = current.getSimpleName();
+				current = current.getEnclosingClass();
+				if (current == null) {
+					break;
+				}
+				builder.insert(0, ' ');
+				builder.insert(0, currentSimpleName);
+			}
+			builder.append(testMethod.getName());
+			builder.append('.');
+			return builder.toString().replace('_', ' ');
+		}
+
 		return String.format("%s(%s)", testMethod.getName(),
 			ClassUtils.nullSafeToString(Class::getSimpleName, testMethod.getParameterTypes()));
 	}
