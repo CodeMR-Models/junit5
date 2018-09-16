@@ -78,27 +78,6 @@ abstract class MethodBasedTestDescriptor extends JupiterTestDescriptor {
 
 	@Override
 	public String getLegacyReportingName() {
-		return generateDefaultDisplayName(testMethod);
-	}
-
-	private static String generateDefaultDisplayName(Method testMethod) {
-		if (testMethod.getName().contains("_")) {
-			StringBuilder builder = new StringBuilder();
-			Class<?> current = testMethod.getDeclaringClass();
-			while (current != null) {
-				String currentSimpleName = current.getSimpleName();
-				current = current.getEnclosingClass();
-				if (current == null) {
-					break;
-				}
-				builder.insert(0, ' ');
-				builder.insert(0, currentSimpleName);
-			}
-			builder.append(testMethod.getName());
-			builder.append('.');
-			return builder.toString().replace('_', ' ');
-		}
-
 		return String.format("%s(%s)", testMethod.getName(),
 			ClassUtils.nullSafeToString(Class::getSimpleName, testMethod.getParameterTypes()));
 	}

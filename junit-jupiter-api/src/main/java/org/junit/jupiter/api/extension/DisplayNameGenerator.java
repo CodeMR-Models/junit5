@@ -15,6 +15,7 @@ import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 import java.lang.reflect.Method;
 
 import org.apiguardian.api.API;
+import org.junit.platform.commons.util.ClassUtils;
 
 /**
  * {@code DisplayNameGenerator} defines the {@link Extension} API for
@@ -25,9 +26,18 @@ import org.apiguardian.api.API;
 @API(status = EXPERIMENTAL, since = "5.4")
 public interface DisplayNameGenerator extends Extension {
 
-	String generateDisplayNameForClass(Class<?> testClass);
+	default String generateDisplayNameForClass(Class<?> testClass) {
+		String name = testClass.getName();
+		int index = name.lastIndexOf('.');
+		return name.substring(index + 1);
+	}
 
-	String generateDisplayNameForNestedClass(Class<?> nestedClass);
+	default String generateDisplayNameForNestedClass(Class<?> nestedClass) {
+		return nestedClass.getSimpleName();
+	}
 
-	String generateDisplayNameForMethod(Method method);
+	default String generateDisplayNameForMethod(Method testMethod) {
+		return String.format("%s(%s)", testMethod.getName(),
+			ClassUtils.nullSafeToString(Class::getSimpleName, testMethod.getParameterTypes()));
+	}
 }

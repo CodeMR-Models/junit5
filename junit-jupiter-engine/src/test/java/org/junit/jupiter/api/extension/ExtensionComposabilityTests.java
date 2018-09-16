@@ -11,8 +11,7 @@
 package org.junit.jupiter.api.extension;
 
 import static java.util.stream.Collectors.toList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -53,18 +52,20 @@ class ExtensionComposabilityTests {
 
 		List<String> expectedMethodSignatures = expectedMethods.stream()
 				.map(this::methodSignature)
+				.filter(name -> !name.contains("jacoco"))
 				.sorted()
 				.collect(toList());
 
 		List<String> expectedMethodNames = expectedMethods.stream()
 				.map(Method::getName)
+				.filter(name -> !name.contains("jacoco"))
 				.sorted()
 				.collect(toList());
 		// @formatter:on
 
 		// 3) Dynamically implement all Extension APIs
 		Object dynamicKitchenSinkExtension = Proxy.newProxyInstance(getClass().getClassLoader(),
-			extensionApis.toArray(new Class<?>[extensionApis.size()]), (proxy, method, args) -> null);
+			extensionApis.toArray(new Class<?>[0]), (proxy, method, args) -> null);
 
 		// 4) Determine what ended up in the kitchen sink...
 
@@ -95,12 +96,8 @@ class ExtensionComposabilityTests {
 
 		// 6) Verify our expectations
 
-		// @formatter:off
-		assertAll(
-				() -> assertThat(actualMethodSignatures).isEqualTo(expectedMethodSignatures),
-				() -> assertThat(actualMethodNames).isEqualTo(expectedMethodNames)
-		);
-		// @formatter:on
+		assertLinesMatch(expectedMethodSignatures, actualMethodSignatures);
+		assertLinesMatch(expectedMethodNames, actualMethodNames);
 	}
 
 	private boolean isExtensionApi(Class<?> candidate) {

@@ -13,7 +13,6 @@ package org.junit.jupiter.engine.descriptor;
 import java.lang.reflect.Method;
 
 import org.junit.jupiter.api.extension.DisplayNameGenerator;
-import org.junit.platform.commons.util.ClassUtils;
 
 /**
  * Default implementation of the {@link DisplayNameGenerator} API.
@@ -23,18 +22,11 @@ import org.junit.platform.commons.util.ClassUtils;
 class DefaultDisplayNameGenerator implements DisplayNameGenerator {
 
 	@Override
-	public String generateDisplayNameForClass(Class<?> testClass) {
-		String name = testClass.getName();
-		int index = name.lastIndexOf('.');
-		return name.substring(index + 1);
-	}
-
-	@Override
 	public String generateDisplayNameForNestedClass(Class<?> nestedClass) {
 		if (nestedClass.getSimpleName().contains("_")) {
 			return nestedClass.getSimpleName().replace('_', ' ') + "...";
 		}
-		return nestedClass.getSimpleName();
+		return DisplayNameGenerator.super.generateDisplayNameForNestedClass(nestedClass);
 	}
 
 	@Override
@@ -56,7 +48,6 @@ class DefaultDisplayNameGenerator implements DisplayNameGenerator {
 			return builder.toString().replace('_', ' ');
 		}
 
-		return String.format("%s(%s)", testMethod.getName(),
-			ClassUtils.nullSafeToString(Class::getSimpleName, testMethod.getParameterTypes()));
+		return DisplayNameGenerator.super.generateDisplayNameForMethod(testMethod);
 	}
 }
