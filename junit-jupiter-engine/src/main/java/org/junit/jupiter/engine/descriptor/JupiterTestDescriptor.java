@@ -29,6 +29,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.DisplayNameGenerator;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ResourceAccessMode;
@@ -40,6 +41,7 @@ import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.junit.platform.commons.util.ExceptionUtils;
 import org.junit.platform.commons.util.Preconditions;
+import org.junit.platform.commons.util.ReflectionUtils;
 import org.junit.platform.commons.util.StringUtils;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestSource;
@@ -61,7 +63,7 @@ public abstract class JupiterTestDescriptor extends AbstractTestDescriptor
 
 	private static final ConditionEvaluator conditionEvaluator = new ConditionEvaluator();
 
-	static final DisplayNameGenerator displayNameGenerator = new DefaultDisplayNameGenerator();
+	static final DisplayNameGenerator defaultDisplayNameGenerator = new DefaultDisplayNameGenerator();
 
 	JupiterTestDescriptor(UniqueId uniqueId, AnnotatedElement element, Supplier<String> displayNameSupplier,
 			TestSource source) {
@@ -95,6 +97,20 @@ public abstract class JupiterTestDescriptor extends AbstractTestDescriptor
 				.map(TestTag::create)
 				.collect(collectingAndThen(toCollection(LinkedHashSet::new), Collections::unmodifiableSet));
 		// @formatter:on
+	}
+
+	protected static DisplayNameGenerator getDisplayNameGenerator(Class<?> testClass) {
+		Preconditions.notNull(testClass, "Test class must not be null");
+		Optional<ExtendWith> optionalExtendWith = findAnnotation(testClass, ExtendWith.class);
+		if (optionalExtendWith.isPresent()) {
+			for (Class<?> candidate : optionalExtendWith.get().value()) {
+				if (!DisplayNameGenerator.class.isAssignableFrom(candidate)) {
+					continue;
+				}
+				return (DisplayNameGenerator) ReflectionUtils.newInstance(candidate);
+			}
+		}
+		return defaultDisplayNameGenerator;
 	}
 
 	protected static String determineDisplayName(AnnotatedElement element, Supplier<String> displayNameSupplier) {

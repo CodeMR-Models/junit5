@@ -39,7 +39,8 @@ abstract class MethodBasedTestDescriptor extends JupiterTestDescriptor {
 
 	MethodBasedTestDescriptor(UniqueId uniqueId, Class<?> testClass, Method testMethod) {
 		this(uniqueId,
-			determineDisplayName(testMethod, () -> displayNameGenerator.generateDisplayNameForMethod(testMethod)),
+			determineDisplayName(testMethod,
+				() -> getDisplayNameGenerator(testClass).generateDisplayNameForMethod(testMethod)),
 			testClass, testMethod);
 	}
 

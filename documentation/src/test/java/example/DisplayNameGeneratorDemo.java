@@ -10,16 +10,29 @@
 
 package example;
 
+import java.lang.reflect.Method;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.DisplayNameGenerator;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("Leap Year Specification")
-class LeapYearSpecDemo {
+class DisplayNameGeneratorDemo {
+
+	static class Generator implements DisplayNameGenerator {
+
+		@Override
+		public String generateDisplayNameForMethod(Method testMethod) {
+			return testMethod.getName().toUpperCase();
+		}
+	}
 
 	@Nested
+	@ExtendWith(DisplayNameGeneratorDemo.Generator.class)
 	class A_year_is_a_leap_year {
 
 		@Test

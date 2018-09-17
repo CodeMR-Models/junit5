@@ -85,7 +85,7 @@ public class ClassTestDescriptor extends JupiterTestDescriptor {
 	private List<Method> afterAllMethods;
 
 	public ClassTestDescriptor(UniqueId uniqueId, Class<?> testClass, ConfigurationParameters configurationParameters) {
-		this(uniqueId, testClass, () -> displayNameGenerator.generateDisplayNameForClass(testClass),
+		this(uniqueId, testClass, () -> getDisplayNameGenerator(testClass).generateDisplayNameForClass(testClass),
 			configurationParameters);
 	}
 
