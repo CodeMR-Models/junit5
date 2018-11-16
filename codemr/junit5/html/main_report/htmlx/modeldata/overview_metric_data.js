@@ -1,0 +1,1 @@
+var CodeMR_ProjectMetrics = {"Project Name":"junit5", "Number of Highly Problematic Classes":1, "Number of Entities":496, "Number of Problematic Classes":10, "Class Lines of Code":12961, "Number of External Packages":51, "Number of Packages":52, "Number of External Entities":283}

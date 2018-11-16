@@ -1,0 +1,1 @@
+var CodeMR_ProjectMetrics = {"Project Name":"junit5 working set: {junit-jupiter-api_main}", "Number of Highly Problematic Classes":0, "Number of Entities":95, "Number of Problematic Classes":2, "Class Lines of Code":1807, "Number of External Packages":16, "Number of Packages":5, "Number of External Entities":60}
