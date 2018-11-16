@@ -1,11 +1,9 @@
 # JUnit 5
 JUnit is a simple framework to write repeatable tests. It is an instance of the xUnit architecture for unit testing frameworks.
 
-For more information, please visit:
-
 ## JUnit5 README
 
-Please see [README-JUnit5.md] in the root directory of the project.
+Please see [JUnit5 README](README-JUnit5.md) in the root directory of the project.
 
 CodeMR Report
 =================
