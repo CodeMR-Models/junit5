@@ -14,9 +14,14 @@ You can download CodeMR plugins for your favorite IDE from:
 - [CodeMR for IntelliJ](https://plugins.jetbrains.com/plugin/10811-codemr)
 - [CodeMR for Eclipse](https://marketplace.eclipse.org/content/codemr-software-quality-tool) 
 
-See CodeMR [web site](https://www.codemr.co.uk) for details on the CodeMR.
-You can download [trial license](https://www.codemr.co.uk/downloads) to try CodeMR for other projects.
+Access to the online report from  [CodeMR HTML Report](https://codemr.co.uk/case-reports/junit5/main_report/htmlx/lbd/dashboard.html) .
 
+See CodeMR [web site](https://www.codemr.co.uk) for details on the CodeMR.
+
+Download [trial license](https://www.codemr.co.uk/downloads) to try CodeMR for other projects.
+
+
+CodeMR model path:
 CodeMR model path: ./codemr/junit5/junit5.mdl
 
 
