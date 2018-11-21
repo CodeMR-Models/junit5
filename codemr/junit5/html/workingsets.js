@@ -13,6 +13,10 @@ var EQ_workingSetList = [
 'junit-platform-suite-api_main',
 'junit-platform-surefire-provider_main',
 'junit-vintage-engine_main',
+'jupiter',
+'no-common-and-util',
+'platform',
 'platform-tests_jmh',
 'platform-tooling-support-tests_main',
+'vintage',
 ];

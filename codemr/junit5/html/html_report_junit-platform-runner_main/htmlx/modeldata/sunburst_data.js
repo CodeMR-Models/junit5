@@ -15,19 +15,19 @@ function EQ_GET_DATA(){
 "name": "JUnitPlatform","key": "fu","value": "130", 
 "metrics":{"20":3,"21":1,"22":1,"23":1,"24":2,"25":1,"26":2,"0":4,"27":3,"28":3,"29":1,"30":4,"31":1,"32":4,"33":3,"34":2,"35":1,"36":1,"16":2,"37":1,"4":3,"8":2,"2":3,"3":4,"1":3}
 ,
-"metricvalues":{"20":17,"21":1,"22":4,"23":0.0,"24":121,"25":0,"26":2,"0":4,"27":31,"28":101,"29":0.5,"30":0.83,"31":3,"32":0.852,"33":13,"34":59,"35":0,"36":4,"16":45,"37":0,"4":3,"8":130,"2":3,"3":4,"1":3}
+"metricvalues":{"20":17,"21":1,"38":15,"22":4,"23":0.0,"24":121,"25":0,"26":2,"0":4,"27":31,"28":101,"29":0.5,"30":0.83,"31":3,"32":0.852,"39":15,"33":13,"34":59,"40":0,"35":0,"36":4,"16":45,"37":0,"4":3,"8":130,"2":3,"3":4,"1":3}
 }
 ,{
 "name": "JUnitPlatformRunnerListener","key": "e2","value": "41", 
 "metrics":{"20":2,"21":1,"22":1,"23":1,"24":1,"25":1,"26":1,"0":2,"27":1,"28":2,"29":3,"30":1,"31":1,"32":2,"33":1,"34":1,"35":1,"36":1,"16":1,"37":1,"4":1,"8":1,"2":2,"3":2,"1":2}
 ,
-"metricvalues":{"20":8,"21":1,"22":2,"23":0.0,"24":38,"25":0,"26":1,"0":2,"27":9,"28":65,"29":0.8,"30":0.5,"31":0,"32":0.681,"33":5,"34":20,"35":0,"36":3,"16":14,"37":0,"4":1,"8":41,"2":2,"3":2,"1":2}
+"metricvalues":{"20":8,"21":1,"38":6,"22":2,"23":0.0,"24":38,"25":0,"26":1,"0":2,"27":9,"28":65,"29":0.8,"30":0.5,"31":0,"32":0.681,"39":5,"33":5,"34":20,"40":1,"35":0,"36":3,"16":14,"37":0,"4":1,"8":41,"2":2,"3":2,"1":2}
 }
 ,{
 "name": "JUnitPlatformTestTree","key": "fJ","value": "76", 
 "metrics":{"20":2,"21":2,"22":1,"23":1,"24":2,"25":1,"26":1,"0":3,"27":1,"28":2,"29":1,"30":3,"31":1,"32":3,"33":2,"34":1,"35":1,"36":1,"16":2,"37":1,"4":2,"8":2,"2":2,"3":3,"1":2}
 ,
-"metricvalues":{"20":9,"21":2,"22":4,"23":0.0,"24":71,"25":0,"26":1,"0":3,"27":15,"28":100,"29":0.0,"30":0.786,"31":0,"32":0.703,"33":7,"34":48,"35":1,"36":2,"16":23,"37":0,"4":2,"8":76,"2":2,"3":3,"1":2}
+"metricvalues":{"20":9,"21":2,"38":9,"22":4,"23":0.0,"24":71,"25":0,"26":1,"0":3,"27":15,"28":100,"29":0.0,"30":0.786,"31":0,"32":0.703,"39":7,"33":7,"34":48,"40":2,"35":1,"36":2,"16":23,"37":0,"4":2,"8":76,"2":2,"3":3,"1":2}
 }
 ]
  }
@@ -75,6 +75,9 @@ EQ_METRIC_MAP["Simple Response For a Class"] =34;
 EQ_METRIC_MAP["Number of Static Methods"] =35;
 EQ_METRIC_MAP["CBO Lib"] =36;
 EQ_METRIC_MAP["Number of Overridden Methods"] =37;
+EQ_METRIC_MAP["Degree"] =38;
+EQ_METRIC_MAP["OutDegree"] =39;
+EQ_METRIC_MAP["InDegree"] =40;
 var EQ_SELECTED_CLASS_METRIC 		= "C3";
 var EQ_SELECTED_PACKAGE_METRIC 	= "C3";
 var EQ_SELECTED_PROJECT_METRIC 	= "Class Lines of Code";
@@ -82,7 +85,7 @@ var EQ_CLASS_METRIC_INDEX 	= EQ_METRIC_MAP[EQ_SELECTED_CLASS_METRIC];
 var EQ_PACKAGE_METRIC_INDEX	= EQ_METRIC_MAP[EQ_SELECTED_PACKAGE_METRIC];
 var EQ_PROJECT_METRIC_INDEX 	= EQ_METRIC_MAP[EQ_SELECTED_PROJECT_METRIC];
 var EQ_COLOR_OF_LEVELS = ["#1F77B4","#007F24","#62BF18","#FFC800","#FF5B13","#E50000"];
-var EQ_CLASS_METRICS = ["C3","Complexity","Coupling","Lack of Cohesion","Size","Class Lines of Code","Weighted Method Count","Coupling Between Object Classes","Access to Foreign Data","Number of Fields","Specialization Index","Class-Methods Lines of Code","Number of Children","Depth of Inheritance Tree","Number of Methods","Response For a Class","Lack of Tight Class Cohesion","Lack of Cohesion of Methods","Number of Static Fields","Lack of Cohesion Among Methods(1-CAM)","CBO App","Simple Response For a Class","Number of Static Methods","CBO Lib","Number of Overridden Methods"];
+var EQ_CLASS_METRICS = ["C3","Complexity","Coupling","Lack of Cohesion","Size","Class Lines of Code","Weighted Method Count","Coupling Between Object Classes","Access to Foreign Data","Number of Fields","Specialization Index","Class-Methods Lines of Code","Number of Children","Depth of Inheritance Tree","Number of Methods","Response For a Class","Lack of Tight Class Cohesion","Lack of Cohesion of Methods","Number of Static Fields","Lack of Cohesion Among Methods(1-CAM)","CBO App","Simple Response For a Class","Number of Static Methods","CBO Lib","Number of Overridden Methods","Degree","OutDegree","InDegree"];
 var EQ_PACKAGE_METRICS = ["C3","Complexity","Coupling","Lack of Cohesion","Size","Number of Entities","Class Lines of Code","Efferent Coupling","Number of Interfaces","Number of Classes","Afferent Coupling","Weighted Method Count","Normalized Distance","Abstractness","Instability"];
 var EQ_PROJECT_METRICS = ["Number of Highly Problematic Classes","Number of Entities","Number of Problematic Classes","Class Lines of Code","Number of External Packages","Number of Packages","Number of External Entities"];
 function EQ_GET_COLOR(d) {
